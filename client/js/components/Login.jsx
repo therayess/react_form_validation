@@ -82,7 +82,9 @@ class Login extends React.Component {
 					{this.state.formErrors ? 
 						<div className="notification error mb3">
 							<strong>Oh snap!</strong> Looks like you need to adjust a few things. <a href="#" onClick={this.goToError}>Go to first error</a>
-							<a href="#" className="right" onClick={()=>{$('.notification').hide()}}><i className="fa fa-times" aria-hidden="true"></i></a>
+							<a href="#" className="right" onClick={(e)=>{e.preventDefault(); $('.notification').hide()}}>
+								<i className="fa fa-times" aria-hidden="true"></i>
+							</a>
 						</div>
 					: null }
 

@@ -38218,8 +38218,8 @@
 							),
 							_react2.default.createElement(
 								'a',
-								{ href: '#', className: 'right', onClick: function onClick() {
-										$('.notification').hide();
+								{ href: '#', className: 'right', onClick: function onClick(e) {
+										e.preventDefault();$('.notification').hide();
 									} },
 								_react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
 							)
@@ -38821,8 +38821,8 @@
 							),
 							_react2.default.createElement(
 								'a',
-								{ href: '#', className: 'right', onClick: function onClick() {
-										$('.notification').hide();
+								{ href: '#', className: 'right', onClick: function onClick(e) {
+										e.preventDefault();$('.notification').hide();
 									} },
 								_react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
 							)
