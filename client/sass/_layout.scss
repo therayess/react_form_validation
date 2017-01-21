@@ -1,0 +1,42 @@
+* {
+	box-sizing: border-box;
+}
+
+h1 {
+	small {
+		display: block;
+		font-size: 70%;
+		font-weight: normal;
+		margin-top: 10px;
+	}
+}
+
+.cols-wrapper {
+	position: relative;
+	width: 100%;
+	@extend .clearfix;
+	.main-col {
+		width: 100%;
+		float: left;
+		@media only screen and (min-width: $tablet) {
+		    width: 65%;
+		}
+	}
+	.side-col {
+		width: 100%;
+		float: left;
+		@media only screen and (min-width: $tablet) {
+		    width: 35%;
+		}
+	}
+	.ts-form {
+		div:first-child {
+			margin-right: 5%;
+		}
+		.main-col {
+			@media only screen and (min-width: $tablet) {
+				width: 60%;
+			}
+		}
+	}
+}

@@ -1,0 +1,117 @@
+.ts-form {
+	background-color: #F2F2F2;
+	padding: 30px;
+	border-radius: 4px;
+	.input-group {
+		width: 100%;
+		margin-bottom: 1rem;
+		position: relative;
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+		input[type=text], input[type=date], input[type=email], input[type=password], select {
+			display: block;
+			width: 100%;
+			border: 1px solid #C8C8C8;
+			border-radius: 2px;
+			height: 45px;
+			line-height: 45px;
+			padding: 10px;
+		}
+		input.date {
+			padding-left: 40px;
+		}
+		.date-calendar {
+			display: inline-block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 45px;
+			line-height: 45px;
+			width: 40px;
+			text-align: center;
+		}
+		label > span {
+			font-weight: normal;
+			font-size: 14px;
+			display: inline-block;
+			margin-left: 5px;
+		}
+		small {
+			display: block;
+			font-size: 14px;
+			color: #333;
+			margin-top: 10px;
+		}
+		::-webkit-input-placeholder {
+			color: #C8C8C8;
+			font-style: italic;
+		}
+		::-moz-placeholder {
+			color: #C8C8C8;
+			font-style: italic;
+		}
+		:-ms-input-placeholder {
+			color: #C8C8C8;
+			font-style: italic;
+		}
+		:-moz-placeholder {
+			color: #C8C8C8;
+			font-style: italic;
+		}
+		.forgot-pass {
+			color: #717171;
+			text-decoration: underline;
+		}
+		.field-extra {
+			@extend .clearfix;
+			.prime {
+				width: 80%;
+				float: left;
+			}
+			.sub {
+				width: 20%;
+				float: left;
+				border: 1px solid #C8C8C8;
+				border-left: 0;
+				border-radius: 2px;
+				height: 45px;
+				line-height: 45px;
+				padding: 0 10px;
+				background-color: #fff;
+			}
+		}
+		&.error {
+			label {
+				color: #f00;
+			}
+			input, select {
+				border: 1px solid #f00;
+				color: #f00;
+				background-color: #F9E6E6;
+			}
+			::-webkit-input-placeholder {
+				color: #f00;
+				font-style: italic;
+			}
+			::-moz-placeholder {
+				color: #f00;
+				font-style: italic;
+			}
+			:-ms-input-placeholder {
+				color: #f00;
+				font-style: italic;
+			}
+			:-moz-placeholder {
+				color: #f00;
+				font-style: italic;
+			}
+			.error-msg {
+				color: #f00;
+				font-weight: bold;
+			}
+		}
+	}
+}

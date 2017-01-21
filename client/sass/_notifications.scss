@@ -1,0 +1,17 @@
+.notification {
+	width: 100%;
+	padding: 20px;
+	&.error {
+		background-color: #F9E6E6;
+		color: #f00;
+		border: 1px solid #f00;
+		border-radius: 4px;
+		a {
+			color: #f00;
+			text-decoration: underline;
+		}
+		.fa-times {
+			color: #333;
+		}
+	}
+}
