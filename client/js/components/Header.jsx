@@ -24,7 +24,7 @@ class Header extends React.Component {
 		            	<div className="nav-wrapper clearfix">
 			            	<div className="logo-block">
 				                <Link to='/' className="site-logo left">Tigerspike Test</Link>
-				                <small className="ml1 left">By Ammar Rayess</small>
+				                <small className="ml1 left desktop">By Ammar Rayess</small>
 				            </div>
 
 				            <ul className="ts-links-list desktop">

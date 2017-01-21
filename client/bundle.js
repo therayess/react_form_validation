@@ -27982,7 +27982,7 @@
 									),
 									_react2.default.createElement(
 										'small',
-										{ className: 'ml1 left' },
+										{ className: 'ml1 left desktop' },
 										'By Ammar Rayess'
 									)
 								),
