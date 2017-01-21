@@ -27842,7 +27842,7 @@
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _Register = __webpack_require__(259);
+	var _Register = __webpack_require__(258);
 
 	var _Register2 = _interopRequireDefault(_Register);
 
@@ -38092,7 +38092,7 @@
 
 	var _Breadcrumbs2 = _interopRequireDefault(_Breadcrumbs);
 
-	var _FormFields = __webpack_require__(258);
+	var _FormFields = __webpack_require__(259);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38218,7 +38218,9 @@
 							),
 							_react2.default.createElement(
 								'a',
-								{ href: '#', className: 'right' },
+								{ href: '#', className: 'right', onClick: function onClick() {
+										$('.notification').hide();
+									} },
 								_react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
 							)
 						) : null,
@@ -38300,6 +38302,279 @@
 
 /***/ },
 /* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(187);
+
+	var _Breadcrumbs = __webpack_require__(256);
+
+	var _Breadcrumbs2 = _interopRequireDefault(_Breadcrumbs);
+
+	var _FormFields = __webpack_require__(259);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Register = function (_React$Component) {
+		_inherits(Register, _React$Component);
+
+		function Register(props) {
+			_classCallCheck(this, Register);
+
+			var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
+
+			_this.state = {
+				formErrors: false,
+				submitting: false
+			};
+
+			_this.handleSubmit = _this.handleSubmit.bind(_this);
+			_this.signalFormSubmit = _this.signalFormSubmit.bind(_this);
+			_this.validateFields = _this.validateFields.bind(_this);
+			_this.goToError = _this.goToError.bind(_this);
+			return _this;
+		}
+
+		_createClass(Register, [{
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate(prevProps, prevState) {
+				// submitting is the signal used to communicate between the form and fields components;
+				// when the fields signal back the form that they have handled the validation; we run 
+				// a final check on the state's formErrors and accordingly handle formSubmit
+
+				if (prevState.submitting && !this.state.submitting) {
+					if (!this.state.formErrors) {
+						// No errors, proceed with submitting the form
+						_reactRouter.browserHistory.push('/home');
+					} else {
+						// Errors! form won't submit
+						console.log("errors!");
+					}
+				}
+			}
+		}, {
+			key: 'handleSubmit',
+			value: function handleSubmit(e) {
+				// First step when handling the form submission is to let the child fields know that
+				// the form submit action has been issued, so they can run their independent validation
+				// and signal back the result
+
+				e.preventDefault();
+
+				this.signalFormSubmit();
+			}
+		}, {
+			key: 'signalFormSubmit',
+			value: function signalFormSubmit() {
+				// By updating the submitting state field, which is passed as a prop to the FormFields child class,
+				// i invoke a signal which serves to let the child class know of the form submitting action and
+				// accordingly run a validation on its fields
+				this.setState({ submitting: true });
+			}
+		}, {
+			key: 'validateFields',
+			value: function validateFields() {
+				// Callback function passed as prop to the FormFields child class, serves as a notification that the
+				// child field has finished running it's validation, hence; i check for the form errors by looking
+				// if there are any invalid fields in the form, and accordingly update the state for formErrors and submitting;
+				// by updating the state fields formErrors and submitting, the class fires a componentDidUpdate change which is then used
+				// to complete form submission if there are no errors
+
+				var isValid = true;
+
+				//  
+				if ($('.invalid-field').length > 0) {
+					isValid = false;
+				}
+
+				this.setState({ formErrors: isValid ? false : true, submitting: false });
+			}
+		}, {
+			key: 'goToError',
+			value: function goToError() {
+				// Find the first invalid field and focus on it
+				$('.invalid-field:eq(0)').focus();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'section',
+					null,
+					_react2.default.createElement(_Breadcrumbs2.default, this.props),
+					_react2.default.createElement(
+						'div',
+						{ className: 'container' },
+						_react2.default.createElement(
+							'h1',
+							{ className: 'my3' },
+							'Register',
+							_react2.default.createElement(
+								'small',
+								null,
+								'Create an account and get started today.'
+							)
+						),
+						this.state.formErrors ? _react2.default.createElement(
+							'div',
+							{ className: 'notification error mb3' },
+							_react2.default.createElement(
+								'strong',
+								null,
+								'Oh snap!'
+							),
+							' Looks like you need to adjust a few things. ',
+							_react2.default.createElement(
+								'a',
+								{ href: '#', onClick: this.goToError },
+								'Go to first error'
+							),
+							_react2.default.createElement(
+								'a',
+								{ href: '#', className: 'right', onClick: function onClick() {
+										$('.notification').hide();
+									} },
+								_react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
+							)
+						) : null,
+						_react2.default.createElement(
+							'div',
+							{ className: 'cols-wrapper flex' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'main-col flex' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'full-width' },
+									_react2.default.createElement(
+										'form',
+										{ className: 'ts-form', onSubmit: this.handleSubmit },
+										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
+											validateFields: this.validateFields,
+											fieldType: 'text',
+											isRequired: true,
+											maxLength: 100,
+											uniqueName: 'forename',
+											fieldText: 'Forename*',
+											placeholderText: 'Forename' }),
+										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
+											validateFields: this.validateFields,
+											fieldType: 'text',
+											isRequired: true,
+											maxLength: 100,
+											uniqueName: 'surname',
+											fieldText: 'Surname*',
+											placeholderText: 'Surname' }),
+										_react2.default.createElement(
+											'div',
+											{ className: 'cols-wrapper' },
+											_react2.default.createElement(
+												'div',
+												{ className: 'side-col' },
+												_react2.default.createElement(_FormFields.SelectField, { formSubmitting: this.state.submitting,
+													validateFields: this.validateFields,
+													isRequired: true,
+													uniqueName: 'sex',
+													fieldText: 'Sex*',
+													options: ['Male', 'Female'],
+													placeholderText: 'Please select' })
+											),
+											_react2.default.createElement(
+												'div',
+												{ className: 'main-col' },
+												_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
+													validateFields: this.validateFields,
+													fieldType: 'text',
+													isRequired: true,
+													isDate: true,
+													uniqueName: 'dob',
+													fieldText: 'Date of birth*',
+													placeholderText: 'Select dates' })
+											)
+										),
+										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
+											validateFields: this.validateFields,
+											fieldType: 'email',
+											isRequired: true,
+											uniqueName: 'email',
+											fieldText: 'Email Address*',
+											placeholderText: 'Email address' }),
+										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
+											validateFields: this.validateFields,
+											fieldType: 'email',
+											verifyField: 'email',
+											isRequired: true,
+											uniqueName: 'email_verify',
+											fieldText: 'Verify Email Address*',
+											placeholderText: 'Verify email address' }),
+										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
+											validateFields: this.validateFields,
+											fieldType: 'password',
+											isRequired: true,
+											minLength: 7,
+											maxLength: 25,
+											showPasswordTrigger: true,
+											uniqueName: 'password',
+											fieldText: 'Password*',
+											placeholderText: 'Password',
+											subTextElement: 'Use between 7 - 25 characters. At least one uppercase character. At least one number.' }),
+										_react2.default.createElement(
+											'div',
+											{ className: 'text-right' },
+											_react2.default.createElement('input', { type: 'submit', className: 'ts-btn grey', value: 'Register' })
+										)
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'side-col text-center flex' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'full-width valign-wrapper' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'valign margin-center' },
+										_react2.default.createElement(
+											'h3',
+											null,
+											'Already a member?'
+										),
+										_react2.default.createElement(
+											_reactRouter.Link,
+											{ to: '/login', className: 'ts-btn default' },
+											'Login'
+										)
+									)
+								)
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return Register;
+	}(_react2.default.Component);
+
+	module.exports = Register;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(253)))
+
+/***/ },
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
@@ -38636,277 +38911,6 @@
 	}(FieldValidator);
 
 	module.exports = { InputField: InputField, SelectField: SelectField };
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(253)))
-
-/***/ },
-/* 259 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function($) {'use strict';
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(187);
-
-	var _Breadcrumbs = __webpack_require__(256);
-
-	var _Breadcrumbs2 = _interopRequireDefault(_Breadcrumbs);
-
-	var _FormFields = __webpack_require__(258);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Register = function (_React$Component) {
-		_inherits(Register, _React$Component);
-
-		function Register(props) {
-			_classCallCheck(this, Register);
-
-			var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
-
-			_this.state = {
-				formErrors: false,
-				submitting: false
-			};
-
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			_this.signalFormSubmit = _this.signalFormSubmit.bind(_this);
-			_this.validateFields = _this.validateFields.bind(_this);
-			_this.goToError = _this.goToError.bind(_this);
-			return _this;
-		}
-
-		_createClass(Register, [{
-			key: 'componentDidUpdate',
-			value: function componentDidUpdate(prevProps, prevState) {
-				// submitting is the signal used to communicate between the form and fields components;
-				// when the fields signal back the form that they have handled the validation; we run 
-				// a final check on the state's formErrors and accordingly handle formSubmit
-
-				if (prevState.submitting && !this.state.submitting) {
-					if (!this.state.formErrors) {
-						// No errors, proceed with submitting the form
-						_reactRouter.browserHistory.push('/home');
-					} else {
-						// Errors! form won't submit
-						console.log("errors!");
-					}
-				}
-			}
-		}, {
-			key: 'handleSubmit',
-			value: function handleSubmit(e) {
-				// First step when handling the form submission is to let the child fields know that
-				// the form submit action has been issued, so they can run their independent validation
-				// and signal back the result
-
-				e.preventDefault();
-
-				this.signalFormSubmit();
-			}
-		}, {
-			key: 'signalFormSubmit',
-			value: function signalFormSubmit() {
-				// By updating the submitting state field, which is passed as a prop to the FormFields child class,
-				// i invoke a signal which serves to let the child class know of the form submitting action and
-				// accordingly run a validation on its fields
-				this.setState({ submitting: true });
-			}
-		}, {
-			key: 'validateFields',
-			value: function validateFields() {
-				// Callback function passed as prop to the FormFields child class, serves as a notification that the
-				// child field has finished running it's validation, hence; i check for the form errors by looking
-				// if there are any invalid fields in the form, and accordingly update the state for formErrors and submitting;
-				// by updating the state fields formErrors and submitting, the class fires a componentDidUpdate change which is then used
-				// to complete form submission if there are no errors
-
-				var isValid = true;
-
-				//  
-				if ($('.invalid-field').length > 0) {
-					isValid = false;
-				}
-
-				this.setState({ formErrors: isValid ? false : true, submitting: false });
-			}
-		}, {
-			key: 'goToError',
-			value: function goToError() {
-				// Find the first invalid field and focus on it
-				$('.invalid-field:eq(0)').focus();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'section',
-					null,
-					_react2.default.createElement(_Breadcrumbs2.default, this.props),
-					_react2.default.createElement(
-						'div',
-						{ className: 'container' },
-						_react2.default.createElement(
-							'h1',
-							{ className: 'my3' },
-							'Register',
-							_react2.default.createElement(
-								'small',
-								null,
-								'Create an account and get started today.'
-							)
-						),
-						this.state.formErrors ? _react2.default.createElement(
-							'div',
-							{ className: 'notification error mb3' },
-							_react2.default.createElement(
-								'strong',
-								null,
-								'Oh snap!'
-							),
-							' Looks like you need to adjust a few things. ',
-							_react2.default.createElement(
-								'a',
-								{ href: '#', onClick: this.goToError },
-								'Go to first error'
-							),
-							_react2.default.createElement(
-								'a',
-								{ href: '#', className: 'right' },
-								_react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
-							)
-						) : null,
-						_react2.default.createElement(
-							'div',
-							{ className: 'cols-wrapper flex' },
-							_react2.default.createElement(
-								'div',
-								{ className: 'main-col flex' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'full-width' },
-									_react2.default.createElement(
-										'form',
-										{ className: 'ts-form', onSubmit: this.handleSubmit },
-										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
-											validateFields: this.validateFields,
-											fieldType: 'text',
-											isRequired: true,
-											maxLength: 100,
-											uniqueName: 'forename',
-											fieldText: 'Forename*',
-											placeholderText: 'Forename' }),
-										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
-											validateFields: this.validateFields,
-											fieldType: 'text',
-											isRequired: true,
-											maxLength: 100,
-											uniqueName: 'surname',
-											fieldText: 'Surname*',
-											placeholderText: 'Surname' }),
-										_react2.default.createElement(
-											'div',
-											{ className: 'cols-wrapper' },
-											_react2.default.createElement(
-												'div',
-												{ className: 'side-col' },
-												_react2.default.createElement(_FormFields.SelectField, { formSubmitting: this.state.submitting,
-													validateFields: this.validateFields,
-													isRequired: true,
-													uniqueName: 'sex',
-													fieldText: 'Sex*',
-													options: ['Male', 'Female'],
-													placeholderText: 'Please select' })
-											),
-											_react2.default.createElement(
-												'div',
-												{ className: 'main-col' },
-												_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
-													validateFields: this.validateFields,
-													fieldType: 'text',
-													isRequired: true,
-													isDate: true,
-													uniqueName: 'dob',
-													fieldText: 'Date of birth*',
-													placeholderText: 'Select dates' })
-											)
-										),
-										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
-											validateFields: this.validateFields,
-											fieldType: 'email',
-											isRequired: true,
-											uniqueName: 'email',
-											fieldText: 'Email Address*',
-											placeholderText: 'Email address' }),
-										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
-											validateFields: this.validateFields,
-											fieldType: 'email',
-											verifyField: 'email',
-											isRequired: true,
-											uniqueName: 'email_verify',
-											fieldText: 'Verify Email Address*',
-											placeholderText: 'Verify email address' }),
-										_react2.default.createElement(_FormFields.InputField, { formSubmitting: this.state.submitting,
-											validateFields: this.validateFields,
-											fieldType: 'password',
-											isRequired: true,
-											minLength: 7,
-											maxLength: 25,
-											showPasswordTrigger: true,
-											uniqueName: 'password',
-											fieldText: 'Password*',
-											placeholderText: 'Password',
-											subTextElement: 'Use between 7 - 25 characters. At least one uppercase character. At least one number.' }),
-										_react2.default.createElement(
-											'div',
-											{ className: 'text-right' },
-											_react2.default.createElement('input', { type: 'submit', className: 'ts-btn grey', value: 'Register' })
-										)
-									)
-								)
-							),
-							_react2.default.createElement(
-								'div',
-								{ className: 'side-col text-center flex' },
-								_react2.default.createElement(
-									'div',
-									{ className: 'full-width valign-wrapper' },
-									_react2.default.createElement(
-										'div',
-										{ className: 'valign margin-center' },
-										_react2.default.createElement(
-											'h3',
-											null,
-											'Already a member?'
-										),
-										_react2.default.createElement(
-											_reactRouter.Link,
-											{ to: '/login', className: 'ts-btn default' },
-											'Login'
-										)
-									)
-								)
-							)
-						)
-					)
-				);
-			}
-		}]);
-
-		return Register;
-	}(_react2.default.Component);
-
-	module.exports = Register;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(253)))
 
 /***/ },

@@ -2758,6 +2758,9 @@ ul {
 * {
   box-sizing: border-box; }
 
+body {
+  margin-bottom: 20px; }
+
 h1 small {
   display: block;
   font-size: 70%;
