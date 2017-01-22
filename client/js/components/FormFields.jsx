@@ -3,11 +3,11 @@ import helpers from '../helpers/helperFunctions';
 
 // Error messages object, save all the relevant messages here to be used in the Fields classes
 const errorMessagesArr = { required: 'This field is required',
-							minLength: (value) => { return 'This field requires a minimum of ' + value + ' characters' },
-							maxLength: (value) => { return 'The entered number of characters exceed the maximum limit of ' + value + ' characters' },
+							minLength: (value) => 'This field requires a minimum of ' + value + ' characters',
+							maxLength: (value) => 'The entered number of characters exceed the maximum limit of ' + value + ' characters',
 							date: 'Invalid date, format should be mm/dd/yyyy',
 							email: 'Invalid email address',
-							verify: (value) => { return 'The entered string should match the one in the ' + value + ' field' }
+							verify: (value) => 'The entered string should match the one in the ' + value + ' field'
 						};
 
 // FieldValidator manages the component state, life cycle and communication with the parent form
