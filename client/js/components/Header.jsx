@@ -23,7 +23,7 @@ class Header extends React.Component {
 	            	<div className="container">
 		            	<div className="nav-wrapper clearfix">
 			            	<div className="logo-block">
-				                <Link to='/' className="site-logo left">Tigerspike Test</Link>
+				                <Link to='/' className="site-logo left">React Form Validation</Link>
 				                <small className="ml1 left desktop">By Ammar Rayess</small>
 				            </div>
 
